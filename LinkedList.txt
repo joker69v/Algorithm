@@ -1,0 +1,90 @@
+
+package com.yyc.java.LinkedList;
+
+public class LinkedList1 {
+    Node head = new Node(0);
+
+    public void addNode(Node newNode) {
+        Node temp = head;
+        while (true) {
+            if (temp.next == null) {
+                break;
+            }
+            temp = temp.next;
+        }
+        temp.next = newNode;
+    }
+
+    public void addByOrder(Node newNode) {
+        Node temp = head;
+        if (temp.next == null) {
+            temp.next = newNode;
+        }
+        while (true) {
+            if (temp.next.data == newNode.data) {
+                throw new RuntimeException("This data already exit!");
+            }
+            if (temp.next.data > newNode.data && temp.data < newNode.data) {
+                newNode.next = temp.next;
+                temp.next = newNode;
+                break;
+            }
+            temp = temp.next;
+        }
+
+    }
+
+    public void deleteNode(int no) {
+        if (head.next == null) {
+            System.out.println("The List is empty!");
+            return;
+        }
+        Node temp = head;
+        while (true) {
+            //这里的temp.next==null代表了链表中的最后一个元素
+            if (temp.next == null) {
+                System.out.println("Not Found this Node!");
+                break;
+            }
+            if (temp.next.data == no) {
+                temp.next = temp.next.next;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    public void showList() {
+        if (head.next == null) {
+            System.out.println("The List is empty!");
+            return;
+        }
+        Node temp = head.next;
+        while (true) {
+            if (temp.next == null) {
+                System.out.println(temp);
+                break;
+            }
+            System.out.println(temp);
+            temp = temp.next;
+        }
+    }
+
+    public void reverseLinkedList(LinkedList1 List) {
+        if (head.next == null || head.next.next == null) {
+            return;
+        }
+        Node cur = head.next;
+        Node next;
+        Node reverseHead = new Node(0);
+        while (cur != null) {
+            next = cur.next;
+            cur.next = reverseHead.next;
+            reverseHead.next = cur;
+            cur = next;
+        }
+        head.next = reverseHead.next;
+        reverseHead.next = null;
+    }
+
+}
